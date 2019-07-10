@@ -87,7 +87,7 @@ function createResult(billArray,orderArray){
   orderArray.forEach(e=>{
      receipt+=`${e.item.name} x ${e.itemNum} = ${e.orderMoney}元\n`;
   });
-  receipt+=`-----------------------------------`;
+  receipt+=`-----------------------------------\n`;
   let minType='';
   if(billArray.length>0){
     let bill=null;
@@ -109,8 +109,7 @@ function createResult(billArray,orderArray){
       receipt+=minType+`，`;
       receipt+=`省${bill.balance}元\n`;
       receipt+=`-----------------------------------\n`;
-      receipt+=`总计：${bill.billMoney}元
-      ===================================`;
+      receipt+=`总计：${bill.billMoney}元\n`+`===================================`;
     }else if(minType=="指定菜品半价"){
       receipt+=minType+`(`;
       balaceItemNameArray.forEach((bit,index,array)=>{
@@ -122,12 +121,10 @@ function createResult(billArray,orderArray){
       });
       receipt+=`省${bill.balance}元\n`;
       receipt+=`-----------------------------------\n`;
-      receipt+=`总计：${bill.billMoney}元
-      ===================================`;
+      receipt+=`总计：${bill.billMoney}元\n`+`===================================`;
     }
   }else{
-    receipt+=`总计：${totalMoney}元
-      ===================================`;
+    receipt+=`总计：${totalMoney}元\n`+`===================================`;
   }
   return receipt;
 }
