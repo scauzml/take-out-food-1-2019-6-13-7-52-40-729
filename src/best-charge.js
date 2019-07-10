@@ -3,7 +3,7 @@ let balaceItemNameArray=[];
 function bestCharge(selectedItems) {
   let allOrder=getAllOrder(selectedItems);
   let allBill=getAllBill(allOrder);
-  let receipt=createResult(allBill,allOrder,balaceItemNameArray)
+  let receipt=createResult(allBill,allOrder)
   return receipt;
 }
 //单条商品订单
@@ -80,7 +80,7 @@ function getAllBill(orderArray){
    return billArray;
 }
 //创建结果
-function createResult(billArray,orderArray,balaceItemNameArray){
+function createResult(billArray,orderArray){
   
   let totalMoney=getTotalMoney(orderArray);
   let receipt=`============= 订餐明细 =============\n`;
