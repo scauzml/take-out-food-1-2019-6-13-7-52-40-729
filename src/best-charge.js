@@ -1,4 +1,4 @@
-//选择优惠菜品
+//选择优惠菜品 测试30min
 let balaceItemNameArray=[];
 function bestCharge(selectedItems) {
   let allOrder=getAllOrder(selectedItems);
@@ -16,7 +16,7 @@ function Bill(){
 
 }
 
-//所有用户的订单汇总
+//所有用户的订单汇总 18nmin
 function getAllOrder(selectedItems){
   let itemArray=loadAllItems();
   let orderArray=[];
@@ -34,7 +34,7 @@ function getAllOrder(selectedItems){
   });
 return orderArray;
 }
-//获取没有优惠的总额
+//获取没有优惠的总额 3min
 function getTotalMoney(orderArray){
   let totalMoney=0;
   orderArray.forEach(e=>{
@@ -42,7 +42,7 @@ function getTotalMoney(orderArray){
   });
   return totalMoney
 }
-//每种优惠方式生成的bill
+//每种优惠方式生成的bill 20min
 function getAllBill(orderArray){
   
    let totalMoney=getTotalMoney(orderArray);
@@ -79,7 +79,7 @@ function getAllBill(orderArray){
    });
    return billArray;
 }
-//创建结果
+//创建结果 30min
 function createResult(billArray,orderArray){
   
   let totalMoney=getTotalMoney(orderArray);
