@@ -1,6 +1,6 @@
 describe('get total money', function () {
 
-    it('should generate best charge when best is 指定菜品半价', function() {
+    it('should answer is 54', function() {
       let inputs = [
           {item:{
                 id: 'ITEM0001',
