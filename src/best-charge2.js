@@ -16,30 +16,35 @@ function Bill(){
 
 }
 
+
 //所有用户的订单汇总 18nmin
 function getAllOrder(selectedItems){
   let itemArray=loadAllItems();
   let orderArray=[];
-  selectedItems.forEach(element => {
+  
+  orderArray=selectedItems.map(element => {
     let sItemsAndNum=element.split(" ");
-    itemArray.forEach(e=>{
-      if(sItemsAndNum[0]==e.id){
-        let order=new Order();
-         order.item=e;
-         order.itemNum=parseInt(sItemsAndNum[sItemsAndNum.length-1]);
-         order.orderMoney=parseFloat(e.price)*order.itemNum;
-         orderArray.push(order);
-      }
-    })
+    let item=itemArray.filter(e=>e.id===sItemsAndNum[0])[0];
+    let order=null;
+    if(item!=null&&item!=[]){
+        order.item=item;
+        order.itemNum=parseInt(sItemsAndNum[sItemsAndNum.length-1]);
+        order.orderMoney=parseFloat(item.price)*order.itemNum;
+    }
+   return order;
   });
 return orderArray;
 }
+
+
+
 //获取没有优惠的总额 3min
 function getTotalMoney(orderArray){
   let totalMoney=0;
-  orderArray.forEach(e=>{
-    totalMoney+=e.orderMoney;
-  });
+  totalMoney=orderArray.reduce((pre,curr)=>{pre+curr},totalMoney); 
+//   orderArray.reduce(e=>{
+//     totalMoney+=e.orderMoney;
+//   });
   return totalMoney
 }
 //每种优惠方式生成的bill 20min
@@ -48,37 +53,34 @@ function getAllBill(orderArray){
    let totalMoney=getTotalMoney(orderArray);
    let salePromotion=loadPromotions();
    let billArray=[];
-   salePromotion.forEach(e=>{
-     let bill=new Bill();
-     if(e.type=="满30减6元"){
-       if(totalMoney>=30){
-         bill.billMoney=totalMoney-6;
-         bill.balance=6;
-         bill.salePromotionType="满30减6元";
-          billArray.push(bill);
-       }
-     }else if(e.type=="指定菜品半价"){
-       let balance=0;
-       orderArray.forEach(order=>{
-         e.items.forEach(e2=>{
-           if(e2==order.item.id){
-
-            
-             order.isDiscount=true;
-             balaceItemNameArray.push(order.item.name);
-             balance+=order.orderMoney/2;
-           }
-         })
-       });
-      
-       if(balance>0){
-         bill.balance=balance;
-         bill.billMoney=totalMoney-balance;
-         bill.salePromotionType="指定菜品半价";
-         billArray.push(bill);
-       }
-     }
+   salePromotion.map(e=>{
+    let bill =new Bill;
+    if(e.type=="满30减6元"){
+        if(totalMoney>=30){
+          bill.billMoney=totalMoney-6;
+          bill.balance=6;
+          bill.salePromotionType="满30减6元";
+        }
+      }else if(e.type=="指定菜品半价"){
+        let balance=0;
+        orderArray.forEach(order=>{
+          e.items.forEach(e2=>{
+            if(e2==order.item.id){    
+              order.isDiscount=true;
+              balaceItemNameArray.push(order.item.name);
+              balance+=order.orderMoney/2;
+            }
+          })
+        });
+       
+        if(balance>0){
+          bill.balance=balance;
+          bill.billMoney=totalMoney-balance;
+          bill.salePromotionType="指定菜品半价";
+        }
+      }
    });
+
    return billArray;
 }
 //创建结果 30min
