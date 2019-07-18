@@ -38,7 +38,7 @@ return orderArray;
 
 
 
-//获取没有优惠的总额 3min
+//获取总额 3min
 function getTotalMoney(orderArray){
   let totalMoney=0;
   totalMoney=orderArray.reduce((pre,curr)=>{pre+curr},totalMoney); 
